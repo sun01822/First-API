@@ -10,7 +10,6 @@ http://localhost:8080
 
 
 
-
 ## Endpoints - User
 
 ### Get All Users
