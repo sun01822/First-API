@@ -42,6 +42,7 @@ func main(){
 	e.GET("/users", GetAllUsers)
 	e.POST("/users", CreateUser)
 	e.DELETE("/users/:id", DeleteUser)
+	e.PATCH("/users/:id", UpdateUser)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":8080"))
@@ -81,4 +82,18 @@ func DeleteUser(c echo.Context) error{
 	return c.JSON(http.StatusOK, "User deleted successfully")
 }
 
+func UpdateUser(c echo.Context) error {
+    id, _ := strconv.Atoi(c.Param("id"))
+    var user User
 
+    if err := DB.First(&user, id).Error; err != nil {
+        return c.JSON(http.StatusInternalServerError, err.Error())
+    }
+    if err := c.Bind(&user); err != nil {
+        return c.JSON(http.StatusBadRequest, err.Error())
+    }
+    if err := DB.Save(&user).Error; err != nil {
+        return c.JSON(http.StatusInternalServerError, err.Error())
+    }
+    return c.JSON(http.StatusOK, "User updated successfully")
+}
