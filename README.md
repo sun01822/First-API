@@ -22,6 +22,11 @@ Create a new user by providing the following parameters: {name, age, email, addr
 
 **POST:** `/users`
 
+### Update User
+Updates a user with the specified ID and returns a success/fail message.
+
+**UPDATE:** `/users/:id`
+
 ### Delete User
 Deletes a user with the specified ID and returns a success/fail message.
 
